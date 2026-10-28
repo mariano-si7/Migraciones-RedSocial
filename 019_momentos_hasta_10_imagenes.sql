@@ -1,3 +1,6 @@
+USE RedSocialDB;
+GO
+
 -- 019 - Permite guardar hasta 10 rutas de imagen en una sola publicación.
 -- Para mantener compatibilidad, una sola imagen continúa guardándose como una ruta normal;
 -- varias imágenes se guardan como un arreglo JSON en Momentos.ArchivoUrl.
@@ -19,3 +22,4 @@ BEGIN
         ON dbo.Momentos (Activo, FechaCreacion)
         INCLUDE (Texto, IdUsuario, TipoAdjunto, LinkUrl, TotalMeGusta, TotalComentarios);
 END;
+GO

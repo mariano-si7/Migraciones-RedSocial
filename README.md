@@ -24,8 +24,16 @@ Ejecuta los archivos en este orden:
 10. `010_historial_cambios_perfil.sql`
 11. `011_soft_delete_momentos.sql`
 12. `012_busqueda_perfiles_momentos.sql`
+13. `013_roles_multiples_fundador.sql`
+14. `014_reportes_moderacion_advertencias.sql`
+15. `015_ajustar_reportes_momentos_con_usuario.sql`
+16. `016_chat_conversaciones_mensajes.sql`
+17. `017_crear_comentarios_momentos.sql`
+18. `018_comentarios_likes_respuestas.sql`
+19. `019_momentos_hasta_10_imagenes.sql`
+20. `020_agregar_timestamps_actualizacion.sql`
 
-El orden importa porque la segunda migración agrega columnas y tablas sobre la estructura creada por la primera.
+El orden importa porque cada migración agrega columnas y tablas sobre la estructura previa.
 
 ## Cómo ejecutar
 
@@ -33,10 +41,9 @@ El orden importa porque la segunda migración agrega columnas y tablas sobre la 
 2. Conéctate a tu instancia de SQL Server.
 3. Abre el archivo `001_crear_tabla_usuarios.sql`.
 4. Ejecuta el script completo.
-5. Abre el archivo `002_registro_verificacion_email_roles.sql`.
-6. Ejecuta el script completo.
+5. Abre y ejecuta sucesivamente cada archivo hasta el `019`.
 
-Los scripts usan `USE RedSocialDB`, por lo que la primera migración crea la base si todavía no existe.
+Los scripts usan `USE RedSocialDB;`, por lo que la primera migración crea la base si todavía no existe.
 
 ## Qué crea cada migración
 
@@ -112,6 +119,38 @@ Los scripts usan `USE RedSocialDB`, por lo que la primera migración crea la bas
 - Vista `vw_BusquedaPerfiles`.
 - Índices para buscar por nombre de usuario y nombre de perfil.
 - Índice base para búsquedas de momentos activos.
+
+`013_roles_multiples_fundador.sql` agrega:
+
+- Tablas `Roles` y `UsuarioRoles` para soporte de múltiples roles y permisos (incluyendo fundador).
+
+`014_reportes_moderacion_advertencias.sql` agrega:
+
+- Tablas `Reportes`, `ModeracionAcciones` y `AdvertenciasUsuario` para moderación.
+
+`015_ajustar_reportes_momentos_con_usuario.sql` agrega:
+
+- Ajuste de integridad para reportes de momentos enlazando al usuario reportado.
+
+`016_chat_conversaciones_mensajes.sql` agrega:
+
+- Tablas `Conversaciones` y `MensajesChat` para mensajería directa en tiempo real.
+
+`017_crear_comentarios_momentos.sql` agrega:
+
+- Tabla `ComentariosMomentos` para comentarios en publicaciones.
+
+`018_comentarios_likes_respuestas.sql` agrega:
+
+- Respuestas anidadas (`IdComentarioPadre`), contadores y tabla `MeGustaComentariosMomentos`.
+
+`019_momentos_hasta_10_imagenes.sql` agrega:
+
+- Ampliación de `ArchivoUrl` a `NVARCHAR(MAX)` en `Momentos` para permitir arreglos JSON de hasta 10 imágenes.
+
+`020_agregar_timestamps_actualizacion.sql` agrega:
+
+- Campos `FechaActualizacion` en `Usuarios`, `ComentariosMomentos` y `Reportes` para auditoría temporal automática.
 
 ## Notas importantes
 
