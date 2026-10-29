@@ -32,6 +32,7 @@ Ejecuta los archivos en este orden:
 18. `018_comentarios_likes_respuestas.sql`
 19. `019_momentos_hasta_10_imagenes.sql`
 20. `020_agregar_timestamps_actualizacion.sql`
+21. `021_agregar_trazabilidad_token_sobreescrituras.sql`
 
 El orden importa porque cada migración agrega columnas y tablas sobre la estructura previa.
 
@@ -151,6 +152,10 @@ Los scripts usan `USE RedSocialDB;`, por lo que la primera migración crea la ba
 `020_agregar_timestamps_actualizacion.sql` agrega:
 
 - Campos `FechaActualizacion` en `Usuarios`, `ComentariosMomentos` y `Reportes` para auditoría temporal automática.
+
+`021_agregar_trazabilidad_token_sobreescrituras.sql` agrega:
+
+- Campos `ModificadoPorTokenId` (UUID) y `ModificadoPorUsuarioId` (INT) en tablas auditables para rastreo de sobreescrituras por token JWT de sesión.
 
 ## Notas importantes
 
